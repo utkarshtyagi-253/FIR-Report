@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FIR Register — Police Records Management</title>
+
+
+
+  <link rel="icon" type="image/png"
+
+    href="https://tse4.mm.bing.net/th/id/OIP.mAhbJWitev0UrESm7kmPJQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" />
+
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans:wght=300;400;500;600&display=swap" rel="stylesheet" />
+
+
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <link rel="stylesheet" href="css/header.css" />
+
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <span class="hindi-text">राजस्थान सरकार | GOVERNMENT OF RAJASTHAN</span>
+    <span>डिजिटल पुलिस सेवा | Digital Police Services</span>
+  </div>
+
+  <header>
+
+    <div class="badge-icon">
+
+      <img src="https://tse2.mm.bing.net/th/id/OIP.1uulKRY3HcRLCdroLZ9mpwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Badge Icon" width="27" height="27">
+
+    </div>
+
+    <div class="header-title-block">
+
+      <div class="header-title">FIR <span>पंजीकरण पोर्टल</span> | Register Portal</div>
+
+      <div class="header-sub">जिला पुलिस अभिलेख प्रबंधन | DISTRICT POLICE RECORDS MANAGEMENT</div>
+
+    </div>
+
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link active">Register FIR</a>
+      <a href="records.html" class="nav-link">FIR Records</a>
+    </nav>
+
+    <div class="header-right">
+
+      <div class="live-dot"></div>
+
+      <span class="live-label">SYSTEM ACTIVE</span>
+
+    </div>
+
+  </header> <main>
+
+
+
+    <div class="stats-bar">
+
+      <div class="stat-card">
+
+        <div class="stat-label">Total FIRs</div>
+
+        <div class="stat-value" id="stat-total">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--danger)">
+
+        <div class="stat-label">Open Cases</div>
+
+        <div class="stat-value" id="stat-open" style="color:var(--danger)">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--accent2)">
+
+        <div class="stat-label">Under Investigation</div>
+
+        <div class="stat-value" id="stat-inv" style="color:var(--accent2)">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--success)">
+
+        <div class="stat-label">Closed</div>
+
+        <div class="stat-value" id="stat-closed" style="color:var(--success)">0</div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="section-header">
+
+      <div class="section-title">Register New FIR</div>
+
+      <div class="section-line"></div>
+
+    </div>
+
+
+
+    <div class="form-panel">
+
+      <div class="form-grid" id="fir-form">
+
+
+
+        <div class="form-group">
+
+          <label>District Name <span class="req">*</span></label>
+
+          <div style="position:relative">
+
+            <input
+
+              type="text" id="district"
+
+              placeholder="Type to search Rajasthan district..."
+
+              autocomplete="off"
+
+              oninput="filterDistricts(this.value)"
+
+              onfocus="showDistrictDropdown()"
+
+              onblur="setTimeout(hideDistrictDropdown)"
+
+            />
+
+            <div id="district-dropdown"
+
+              style="display:none;position:absolute;top:100%;left:0;right:0;
+
+                     background:#161c28;border:1px solid #00aaff;
+
+                     border-top:none;max-height:220px;overflow-y:auto;
+
+                     z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.7);">
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>Police Station <span class="req">*</span></label>
+
+          <input type="text" id="police_station" placeholder="e.g. Jaipur Central PS" />
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>FIR Number <span class="req">*</span></label>
+
+          <input type="text" id="fir_no" placeholder="e.g. 0142/2024" />
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>FIR Date <span class="req">*</span></label>
+
+          <input type="date" id="fir_date" />
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>Status</label>
+
+          <select id="status">
+
+            <option value="open">Open</option>
+
+            <option value="investigation">Under Investigation</option>
+
+            <option value="closed">Closed</option>
+
+          </select>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>IO Name <span class="req">*</span></label>
+
+          <input type="text" id="io_name" placeholder="Investigating Officer Name" />
+
+        </div>
+
+
+
+        <div class="form-group">
+
+          <label>IO Mobile Number <span class="req">*</span></label>
+
+          <div class="phone-wrap">
+
+            <span class="phone-prefix">+91</span>
+
+            <input type="tel" id="io_mobile" placeholder="9876543210" maxlength="10" />
+
+          </div>
+
+        </div>
+
+
+
+        <div class="form-group half">
+
+          <label>Sections of FIR <span class="req">*</span></label>
+
+          <input type="text" id="sections" placeholder="e.g. 302 IPC, 307 IPC, 25 Arms Act" />
+
+        </div>
+
+
+
+        <div class="form-group full">
+
+          <label style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2px;">
+            <span>Brief Details / Remarks</span>
+            <button type="button" class="btn btn-ghost" style="font-size:10px; font-weight:700; padding:3px 8px; cursor:pointer; margin:0;" onclick="generateAIBrief()">✨ Generate Legal Brief with AI</button>
+          </label>
+
+          <textarea id="remarks" placeholder="Brief description of the case..."></textarea>
+
+        </div>
+
+
+
+      </div><div class="btn-row">
+
+        <button class="btn btn-ghost" onclick="resetForm()">CLEAR</button>
+
+        <button class="btn btn-primary" onclick="saveFIR()">REGISTER FIR</button>
+
+      </div>
+
+    </div></main>
+
+
+
+  <div id="toast"></div>
+
+
+
+  <script src="js/districts.js"></script>
+
+  <script src="js/app.js"></script>
+
+
+
+</body>
+
+</html>
+

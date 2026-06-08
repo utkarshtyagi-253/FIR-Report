@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input type="text" id="name" placeholder="Enter your name">
+<button onclick="showData()">Submit</button>
+
+<p id="output"></p>
+
+<script>
+function showData() {
+    let data = document.getElementById("name").value;
+    document.getElementById("output").innerHTML = data;
+}
+</script>
+
+</body>
+</html>

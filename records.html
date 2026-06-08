@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FIR Records — Police Records Management</title>
+
+
+
+  <link rel="icon" type="image/png"
+
+    href="https://tse4.mm.bing.net/th/id/OIP.mAhbJWitev0UrESm7kmPJQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" />
+
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans:wght=300;400;500;600&display=swap" rel="stylesheet" />
+
+
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <link rel="stylesheet" href="css/header.css" />
+</head>
+
+<body>
+
+  <!-- Security Clearance Overlay -->
+  <div id="security-overlay" class="security-overlay">
+    <div class="security-card">
+      <div class="security-badge">🔒</div>
+      <h2 class="security-title">Security Clearance Required</h2>
+      <p class="security-subtitle">ENTER ACCESS PASSWORD TO VIEW FIR RECORDS</p>
+      <div class="password-input-wrap">
+        <input type="password" id="security-pass" placeholder="••••" maxlength="4" autofocus />
+      </div>
+      <div class="security-error" id="security-error"></div>
+      <button class="btn btn-primary" onclick="verifyAccess()">AUTHORIZE ACCESS</button>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <span class="hindi-text">राजस्थान सरकार | GOVERNMENT OF RAJASTHAN</span>
+    <span>डिजिटल पुलिस सेवा | Digital Police Services</span>
+  </div>
+
+  <header>
+
+    <div class="badge-icon">
+
+      <img src="https://tse2.mm.bing.net/th/id/OIP.1uulKRY3HcRLCdroLZ9mpwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Badge Icon" width="27" height="27">
+
+    </div>
+
+    <div class="header-title-block">
+
+      <div class="header-title">FIR <span>पंजीकरण पोर्टल</span> | Register Portal</div>
+
+      <div class="header-sub">जिला पुलिस अभिलेख प्रबंधन | DISTRICT POLICE RECORDS MANAGEMENT</div>
+
+    </div>
+
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">Register FIR</a>
+      <a href="records.html" class="nav-link active">FIR Records</a>
+    </nav>
+
+
+
+    <div class="header-right">
+
+      <div class="live-dot"></div>
+
+      <span class="live-label">SYSTEM ACTIVE</span>
+
+    </div>
+
+  </header> <main>
+
+
+
+    <div class="stats-bar">
+
+      <div class="stat-card">
+
+        <div class="stat-label">Total FIRs</div>
+
+        <div class="stat-value" id="stat-total">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--danger)">
+
+        <div class="stat-label">Open Cases</div>
+
+        <div class="stat-value" id="stat-open" style="color:var(--danger)">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--accent2)">
+
+        <div class="stat-label">Under Investigation</div>
+
+        <div class="stat-value" id="stat-inv" style="color:var(--accent2)">0</div>
+
+      </div>
+
+      <div class="stat-card" style="border-top-color:var(--success)">
+
+        <div class="stat-label">Closed</div>
+
+        <div class="stat-value" id="stat-closed" style="color:var(--success)">0</div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="section-header">
+
+      <div class="section-title">FIR Records</div>
+
+      <div class="section-line"></div>
+
+    </div>
+
+
+
+    <div class="table-panel">
+
+      <div class="table-toolbar">
+
+        <div class="search-box">
+
+          <span class="search-icon">🔍</span>
+
+          <input
+
+            type="text" id="search-input"
+
+            placeholder="Search by FIR No, District, IO Name..."
+
+            oninput="renderTable()"
+
+          />
+
+        </div>
+
+        <select class="filter-select" id="filter-status" onchange="renderTable()">
+
+          <option value="">All Statuses</option>
+
+          <option value="open">Open</option>
+
+          <option value="investigation">Under Investigation</option>
+
+          <option value="closed">Closed</option>
+
+        </select>
+
+        <select class="filter-select" id="filter-district" onchange="renderTable()">
+
+          <option value="">All Districts</option>
+
+        </select>
+
+      </div>
+
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>#</th>
+
+              <th>District</th>
+
+              <th>Police Station</th>
+
+              <th>FIR No</th>
+
+              <th>FIR Date</th>
+
+              <th>Sections</th>
+
+              <th>IO Name</th>
+
+              <th>IO Mobile</th>
+
+              <th>Status</th>
+
+              <th>Actions</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="fir-tbody"></tbody>
+
+        </table>
+
+
+
+        <div class="empty-state" id="empty-state">
+
+          <div class="empty-icon">📋</div>
+
+          <p>NO FIR RECORDS FOUND</p>
+
+          <p style="margin-top:6px;font-size:10px">Register a new FIR to see them listed here</p>
+
+        </div>
+
+      </div>
+
+    </div></main>
+
+
+
+  <div id="toast"></div>
+
+
+
+  <script src="js/districts.js"></script>
+
+  <script src="js/app.js"></script>
+
+  <script>
+    function verifyAccess() {
+      const input = document.getElementById('security-pass');
+      const error = document.getElementById('security-error');
+      if (input.value === '1234') {
+        const overlay = document.getElementById('security-overlay');
+        overlay.classList.add('hidden');
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 400);
+      } else {
+        error.textContent = '❌ ACCESS DENIED — INVALID CODE';
+        input.value = '';
+        input.focus();
+        
+        // Keypad/Card Shake Feedback
+        const card = document.querySelector('.security-card');
+        card.style.animation = 'none';
+        setTimeout(() => {
+          card.style.animation = 'shake 0.3s ease';
+        }, 10);
+      }
+    }
+
+    // Bind Enter key trigger
+    document.addEventListener('DOMContentLoaded', () => {
+      const passInput = document.getElementById('security-pass');
+      if (passInput) {
+        passInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') verifyAccess();
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>
+
